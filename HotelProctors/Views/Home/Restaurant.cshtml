@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Restaurant";
+    //Layout = null;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+
+
+
+
+
+
+
+<section class="ftco-section ftc-no-pb ftc-no-pt">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 p-md-5 img img-2 img-3 d-flex justify-content-center align-items-center" style="background-image: url(/Content/images/about.jpg);">
+            </div>
+            <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
+                <div class="heading-section heading-section-wo-line pt-md-4 mb-5">
+                    <div class="ml-md-0">
+                        <span class="subheading">Our Restaurants</span>
+                        <h2 class="mb-4">We Are Food Lover</h2>
+                    </div>
+                </div>
+                <div class="pb-md-4">
+                    <p>
+                        Magic Bar & Restaurant, is a sophisticated, modern venue making its debut in the N.Y night scene.
+
+                        Its mission? To sweep patrons off their feet with its architecture, Art Deco design and its approach to bespoke cuisine and divine cocktails!
+                    </p>
+                    <p>The style of the restaurant is also reflected on its culinary identity. The dishes, perfect down to the last detail, take you on an amazing journey to traditional flavors and memories, albeit in a modern and creative manner. The menu goes beyond typical fine dining, elevating the traditional flavors we all know and trust with creative, surreal twists, completely in tune with the Magic Bar & Restaurant concept. The dishes, whether served as interesting tidbits to accompany your drinks in the modern setting of the bar or as courses at the restaurant, possess both modern and traditional finesse to satisfy all tastes. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2>Our Menu</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="myform form ">
+
+                 
+                    <table class="table-hover table">
+                        <tr>
+                            <th>Meal</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                        </tr>
+                        <tbody id="meals-body">
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            function listMeals() {
+                $.ajax({
+                    type: 'get',
+                    dataType: 'json',
+                    url: '/api/Meals',
+                    success: function (data) {
+                        $('#meals-body').empty();
+                        data.forEach(function (meal) {
+                            $("#meals-body").append('<tr><td>' + meal.Name + '</td><td>' + meal.Description + '</td><td>' + meal.Price + '€</td><td></td > ' + '</tr > ')
+
+                        });
+                      
+                    }
+                });
+
+            }
+
+            listMeals();
+          
+        });
+
+    </script>
+}

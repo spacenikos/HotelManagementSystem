@@ -1,0 +1,463 @@
+﻿    @model HotelProctors.Models.SearchViewModel
+@{
+    //Layout = "~/Views/Shared/_Layout1.cshtml";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Deluxe - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Content/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/animate.css">
+
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Content/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="~/Content/css/aos.css">
+
+    <link rel="stylesheet" href="~/Content/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="~/Content/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/Content/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="~/Content/css/flaticon.css">
+    <link rel="stylesheet" href="~/Content/css/icomoon.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+
+
+
+<body>
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+            <div class="container">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">Magic Hotel</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="oi oi-menu"></span> Menu
+                </button>
+
+                <div class="collapse navbar-collapse" id="ftco-nav">
+
+                    <ul class="navbar-nav ml-auto">
+                        @if (Request.IsAuthenticated && User.Identity.Name == "admin@proctors.com")
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <strong>Administrator Menu</strong>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="@Url.Action("UserProfile", "Users")">My Profile</a>
+                                    <a class="dropdown-item" href="@Url.Action("Reservations", "Admin")">Reservations</a>
+                                    <a class="dropdown-item" href="@Url.Action("Rooms", "Admin")">Rooms</a>
+                                    <a class="dropdown-item" href="@Url.Action("Users", "Admin")">Users</a>
+                                    <a class="dropdown-item" href="@Url.Action("Meals", "Admin")">Meals</a>
+                                    <a class="dropdown-item" href="@Url.Action("Amenities", "Admin")">Amenities</a>
+
+                                </div>
+                            </li>
+                        }
+                       @if(Request.IsAuthenticated && User.Identity.Name != "admin@proctors.com")
+                        {
+                            <li class="nav-item">@Html.ActionLink("MyProfile", "UserProfile", "Users", null, new { @class = "nav-link" })</li>
+                        }
+                        <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Rooms", "Index", "Rooms", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Restaurant", "Restaurant", "Home", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+
+                    </ul>
+                 
+                    @Html.Partial("_LoginPartial")
+
+                </div>
+                </div>
+</nav>
+
+
+    <!-- END nav -->
+
+
+
+
+
+    <section class="home-slider owl-carousel">
+        <div class="slider-item" style="background-image: url(/Content/images/image.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-12 ftco-animate text-center">
+                        <div class="text mb-5 pb-3">
+                            <h1 class="mb-3">Welcome To Magicians</h1>
+                            <h2>Hotels &amp; Resorts</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="slider-item" style="background-image: url(/Content/images/bg_2.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+
+                    <div class="col-md-12 ftco-animate text-center">
+                        <div class="text mb-5 pb-3">
+                            <h1 class="mb-3">Enjoy A Luxury Experience</h1>
+                            <h2>Join With Us</h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+
+    @Html.Partial("_GetFreeRoomsPartial")
+
+
+    <section class="ftco-section ftc-no-pb ftc-no-pt">
+        <div class="container">
+            <div class="row">
+                <div  class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/Content/images/bg_2.jpg);" >
+                    <a href="https://www.youtube.com/watch?v=eaSdTJAYl6s"  class="icon popup-vimeo d-flex justify-content-center align-items-center">
+                        <span class="icon-play"></span>
+                    </a>
+                </div>
+                <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
+                    <div class="heading-section heading-section-wo-line pt-md-5 pl-md-5 mb-5">
+                        <div class="ml-md-0">
+                            @*<span class="subheading">Welcome to Magic Hotel</span>*@
+                            <h2 class="mb-4">Welcome To Our Hotel</h2>
+                        </div>
+                    </div>
+                    <div class="pb-md-5">
+                        <p>
+                            The Magic Hotel, member of the Leading Hotels of the World, enjoys a prime location in the heart of this iconic city making it the ideal location to visit N.Y major attractions.
+                        </p>
+                        <p>
+                            Magic Hotel offers spacious accommodation and luxurious facilities that will please even the most demanding guests. The hotel offers elegant rooms and sumptuous suites, a variety of restaurants and lounge/bars, a rooftop health club, indoor/outdoor swimming pool with amazing views to the city and one of the biggest congress and banquet centers in Manhattan.
+                            All these, plus spectacular views of the city, from the upper floors.
+                            Get ready to be spoiled for choice!
+                        </p>
+                        <p>All in all we hope you will leave our place wanting to tell everyone you know about how wonderful your experience with us has been and wanting to return for more of our generous hospitality.</p>
+                        <ul class="ftco-social d-flex">
+                            <li class="ftco-animate"><a href="https://twitter.com/"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="https://facebook.com/"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="https://instagram.com/"><span class="icon-instagram"></span></a></li>
+                            @*<li class="ftco-animate"><<a href="https://accounts.google.com/"><span class="icon-google-plus"></span></a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-reception-bell"></span>
+                            </div>
+                        </div>
+                        <div class="media-body p-2 mt-2">
+                            <h3 class="heading mb-3">25/7 Front Desk</h3>
+                            <p>Among the facilities at this property are a 24-hour front desk and a tour desk, along with free WiFi throughout the property.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-serving-dish"></span>
+                            </div>
+                        </div>
+                        <div class="media-body p-2 mt-2">
+                            <h3 class="heading mb-3">Restaurant Bar</h3>
+                            <p>Divine dining in the heart of Manhattan. The perfect meal for every occasion served by the most attentive and welcoming team.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex align-sel Searchf-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-car"></span>
+                            </div>
+                        </div>
+                        <div class="media-body p-2 mt-2">
+                            <h3 class="heading mb-3">Transfer Services</h3>
+                            <p>For your convenience, you may choose to book in advance your transport to Magic Hotel either from the Airport or from the city's harbor.  </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-spa"></span>
+                            </div>
+                        </div>
+                        <div class="media-body p-2 mt-2">
+                            <h3 class="heading mb-3">Spa Suites</h3>
+                            <p>
+                                Each SPA care is the ultimate luxurious experience.
+                                The holistic philosophy of care, benefits both the soul and the mind, the face and the body.
+                                Enjoy revitalisation and regeneration of the skin.
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="row">
+                        @foreach (var item in Model.Rooms)
+                        {
+                            if (item != null)
+                            {
+                                <div class="col-sm col-md-6 col-lg-4 ftco-animate">
+                                    <div class="room">
+                                        <a href=@Url.Action("IndexRoomTypes", "Rooms", new { roomType = item.RoomType }) class="img d-flex justify-content-center align-items-center" style="background-image:url(@item.ProfilePicture);">
+                                            <div class="icon d-flex justify-content-center align-items-center">
+                                                <span class="icon-search2"></span>
+                                            </div>
+                                        </a>
+                                        <div class="text p-3 text-center">
+                                            <h3 class="mb-3"> <a href="@Url.Action("IndexRoomTypes", "Rooms", new { roomType = item.RoomType })">@Html.DisplayTextFor(model => item.EnumStringRoomType)</a></h3>
+                                            @*<p><span class="price mr-2">@Html.DisplayFor(modelItem => item.Price)</span> <span class="per">per night</span></p>
+                                                <ul class="list">
+                                                    <li><span>@Html.DisplayNameFor(modelItem => item.Size):</span> @Html.DisplayFor(modelItem => item.Size)</li>
+                                                    <li><span>@Html.DisplayNameFor(modelItem => item.View):</span>@Html.DisplayFor(modelItem => item.View)</li>
+                                                    <li><span> @Html.DisplayNameFor(modelItem => item.Bed):</span> @Html.DisplayFor(modelItem => item.Bed)</li>
+                                                </ul>*@
+                                            <hr>
+                                            <p class="pt-1"><a href=@Url.Action("IndexRoomTypes", "Rooms", new { roomType = item.RoomType }) class="btn-custom">View More <span class="icon-long-arrow-right"></span></a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_1.jpg);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="@Model.Reservations.Count()">0</strong>
+                                    <span>Reservations</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="@Model.RoomsIndex.Count()">0</strong>
+                                    <span>Rooms</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+
+
+    <section class="instagram">
+        <div class="container-fluid">
+            <div class="row no-gutters justify-content-center pb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <h2><span>Instagram</span></h2>
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="/Content/images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(/Content/images/insta-1.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span  class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="/Content/images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(/Content/images/insta-2.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="/Content/images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(/Content/images/insta-3.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="/Content/images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(/Content/images/insta-4.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="/Content/images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(/Content/images/insta-5.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Magic Hotel</h2>
+                        <p>Live the experience of N.Y.C Seaside and enjoy our luxurious services.</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="https://twitter.com/"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="https://facebook.com/"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="https://instagram.com/"><span class="icon-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4 ml-md-5">
+                        <h2 class="ftco-heading-2">Useful Links</h2>
+                        <ul class="list-unstyled">
+                            <li> @Html.ActionLink("Rooms", "Index", "Rooms", null, new { @class = "py-2 d-block" })</li>
+                            <li> @Html.ActionLink("Services", "Services", "Home", null, new { @class = "py-2 d-block" })</li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Privacy</h2>
+                        <ul class="list-unstyled">
+                            @*<li><a href="#" class="py-2 d-block">Career</a></li>*@
+                            <li> @Html.ActionLink("About us", "About", "Home", null, new { @class = "py-2 d-block" })</li>
+                            <li> @Html.ActionLink("Contact Us", "Contact", "Home", null, new { @class = "py-2 d-block" })</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Have a Questions?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li>
+                                    <span class="icon icon-phone"></span>
+                                    <span class="text">+130 210 9752 310</span>
+                                </li>
+                                <li><span class="icon icon-envelope"></span><span class="text">info@yourmagicians.com</span></li>
+
+                                <li><span class="icon icon-map-marker"></span><span class="text">11th Avenue 120, Manhattan, New York, USA</span></li>
+
+                                <li>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.686099338856!2d-74.0097746850944!3d40.74693214341555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259c7909666b3%3A0x8618411823acbe7a!2s120%2011th%20Ave%2C%20New%20York%2C%20NY%2010011%2C%20USA!5e0!3m2!1sen!2sgr!4v1579353667935!5m2!1sen!2sgr" width="200" height="175" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> Magic Hotel. All rights reserved  <i class="icon-heart color-danger" aria-hidden="true"></i><a href="https://colorlib.com" target="_blank"></a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/Content/js/popper.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.easing.1.3.js"></script>
+    <script src="~/Content/js/jquery.waypoints.min.js"></script>
+    <script src="~/Content/js/jquery.stellar.min.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/js/aos.js"></script>
+    <script src="~/Content/js/jquery.animateNumber.min.js"></script>
+    <script src="~/Content/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/js/jquery.timepicker.min.js"></script>
+    <script src="~/Content/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/Content/js/google-map.js"></script>
+    <script src="~/Content/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            dateArrival = $('#ArrivalDate').val();
+            dateDeparture = $('#DepartureDate').val();
+            $('#ArrivalDate').val(dateArrival.slice(0, 10));
+            $('#DepartureDate').val(dateDeparture.slice(0, 10));
+
+
+
+        });
+
+
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+</body>
+</html>

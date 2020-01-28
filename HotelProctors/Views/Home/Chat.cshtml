@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+}
+
+<h2>Chat</h2>
+
+@{
+    ViewBag.Title = "Chat with a Stranger";
+}
+
+<h1>Chat with a Stranger</h1>
+
+<div data-bind="foreach: messages">
+    <div data-bind="text: $data"></div>
+</div>
+
+<hr />
+
+<form data-bind="submit: send, visible: connected">
+    <input type="text" data-bind="value: text" />
+    <button type="submit">Send</button>
+</form>
+
+<script src="~/Scripts/knockout-3.5.1.debug.js"></script>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+<script src="~/signalr/hubs"></script>
+
+<script>
+
+    var hub = $.connection.chatHub;
+
+    var vm = {
+        otherUser: "",
+        messages: ko.observableArray(["Waiting for a stranger..."]),
+        connected: ko.observable(false),
+        text: ko.observable(""),
+
+        send: function () {
+            var text = vm.text();
+            if (text.length == 0) return;
+            hub.server.sendMessage(text, vm.otherUser);
+            vm.messages.push("You: " + text);
+            vm.text("");
+        },
+
+        addMessage: function (text) {
+            vm.messages.push("Stranger: " + text);
+        },
+
+        startChat: function (otherUser) {
+            vm.otherUser = otherUser;
+            vm.messages(["A stranger has connected. Say hello!"]);
+            vm.connected(true);
+        }
+    }
+
+    ko.applyBindings(vm);
+
+    hub.client.startChat = vm.startChat;
+    hub.client.addMessage = vm.addMessage;
+
+    $.connection.hub.start();
+</script>

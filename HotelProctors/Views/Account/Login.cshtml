@@ -1,0 +1,149 @@
+﻿@using HotelProctors.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Deluxe - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="~/Content/css/custom-register.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Content/css/style.css">
+
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light py-3">
+            <div class="container">
+                <!-- Navbar Brand -->
+
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">Magic Hotel</a>
+
+            </div>
+        </nav>
+    </header>
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="container">
+            <div class="row py-5 mt-4 align-items-center">
+                <!-- For Demo Purpose -->
+                <div class="col-md-5 pr-lg-5 mb-5 mb-md-0 center-block">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Royal_Arms_of_Denmark_%26_Norway_%281699%E2%80%931819%29.svg/160px-Royal_Arms_of_Denmark_%26_Norway_%281699%E2%80%931819%29.svg.png" alt="" class="rounded mx-auto d-block">
+                    <h1>Log In</h1>
+                    <p class="font-italic text-muted mb-0">Achieving Superiority in Hospitaly.</p>
+                    @*<p class="font-italic text-muted">
+                Snippet By
+                <a href="https://bootstrapious.com" class="text-muted">
+                    <u>Bootstrapious</u>
+                </a>
+            </p>*@
+                </div>
+               
+                <!-- Registeration Form -->
+                <div class="col-md-7 col-lg-6 ml-auto">
+                    <form action="#">
+
+                        <div class="row">
+
+
+
+                            <!-- Email Address -->
+                            <div class="input-group col-lg-12 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class="fa fa-envelope text-muted"></i>
+                                    </span>
+                                </div>
+                                @Html.TextBoxFor(m => m.Email, new { @id = "email", type = "email", name = "email", placeholder = "Email Address", @class = "form-control bg-white border-md" })
+                                @*<input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">*@
+                            </div>
+
+
+
+
+
+
+                            <!-- Password -->
+                            <div class="input-group col-lg-12 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class="fa fa-lock text-muted"></i>
+                                    </span>
+                                </div>
+                                @Html.PasswordFor(m => m.Password, new { id = "password", type = "password", name = "password", placeholder = "Password", @class = "form-control bg-white border-md" })
+                                @*<input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">*@
+                            </div>
+
+
+                            <!-- Submit Button -->
+                            <div class="form-group col-lg-12 mx-auto mb-0">
+                                <input type="submit" class="btn btn-primary btn-block py-2 font-weight-bold" value="Login" />
+
+
+
+                                @*<a href="#" class="btn btn-primary btn-block py-2">*@
+                                @*<span class="font-weight-bold">Create your account</span>*@
+                                @*</a>*@
+                            </div>
+
+                            <div class="form-group col-lg-12 mx-auto mb-0">
+                                <a href="@Url.Action("Index", "Home")" class="btn btn-primary btn-block py-2 font-weight-bold" style="margin: 5px">Back</a>
+
+                            </div>
+
+
+                            <!-- Divider Text -->
+                            <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                                <div class="border-bottom w-100 ml-5"></div>
+                                <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+                                <div class="border-bottom w-100 mr-5"></div>
+                            </div>
+
+
+
+
+                            <!-- Already Registered -->
+                            <div class="text-center w-100">
+                                <p class="text-muted font-weight-bold">Not Registered? @Html.ActionLink("Register", "Register")</p>
+                            </div>
+
+                        </div>
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    }
+
+    <script src="~/Content/js/custom-register.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    @*@RenderSection("scripts", required: false)*@
+</body>
+
+</html>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}*@

@@ -1,0 +1,100 @@
+﻿
+@model HotelProctors.Models.SearchViewModel
+
+@{
+    ViewBag.Title = "Rooms";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Rooms")
+
+</p>
+<div class="row">
+    @Html.Partial("_GetAllFreeRoomsPartial")
+    <div class="col-md-10 mx-auto">
+
+        <div class="myform form ">
+
+            <table class="table">
+
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room.Amenities.AmenitiesPackage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room.Bed)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room.Size)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room.View)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room.MaxPersons)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room.RoomType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room.Floor)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Rooms)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amenities.AmenitiesPackage)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnumStringBed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Size)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.View)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnumStringMaxPesrons)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnumStringRoomType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnumStringFloor)
+                        </td>
+
+
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Rooms", new { id = item.Id }, "") |
+                            @Html.ActionLink("Details", "Details", "Rooms", new { id = item.Id }, "") |
+                            @Html.ActionLink("Delete", "Delete", "Rooms", new { id = item.Id }, "")
+                        </td>
+                    </tr>
+                }
+
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

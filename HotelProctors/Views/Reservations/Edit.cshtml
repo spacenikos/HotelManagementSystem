@@ -1,0 +1,64 @@
+﻿@model HotelProctors.Models.Reservation
+
+@{
+    ViewBag.Title = "Edit Reservation";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+
+            <div class="myform form ">
+                <form action="" method="post" name="login"> 
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ArrivalDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ArrivalDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.ArrivalDate.ToString("yyyy-MM-dd") })
+                            @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.DepartureDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.DepartureDate.ToString("yyyy-MM-dd") })
+                            @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-10">
+
+                            @Html.HiddenFor(model => model.RoomId, new { })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-7 mx-auto">
+                            <input type="submit" value="Save" class="btn btn-block btn-outline-dark tx-tfm" />
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="col-md-7 mx-auto">
+                            @Html.ActionLink("Back", "Index", "Reservations", null, new { @class = "btn btn-block btn-outline-dark tx-tfm", style = "margin: 5px" })
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+}
+
+          

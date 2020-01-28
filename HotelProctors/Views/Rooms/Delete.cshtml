@@ -1,0 +1,86 @@
+﻿    @model HotelProctors.Models.Room
+
+@{
+    ViewBag.Title = "Delete Room";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<div class="text-center">
+    <div class="col-md-4 mx-auto">
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
+           
+            <dt>
+                @Html.DisplayNameFor(model => model.Bed)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Bed)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Size)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Size)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.View)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.View)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RoomType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RoomType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Floor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Floor)
+            </dd>
+
+
+
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
+            <div class="text-center ">
+                <div class="col-md-6 mx-auto">
+                    <button type="submit" value="delete" class="btn btn-block btn-outline-dark tx-tfm" style="margin: 5px">Delete</button>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <div class="col-md-6 mx-auto">
+                    @Html.ActionLink("Back", "Rooms", "Admin", null, new { @class = "btn btn-block btn-outline-dark tx-tfm", style = "margin: 5px" })
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+

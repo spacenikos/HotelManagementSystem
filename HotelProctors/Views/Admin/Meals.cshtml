@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "Restaurant";
+    //Layout = null;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<div class="modal fade" id="createMeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Meal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="Name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Price" class="col-form-label">Price:</label>
+                        <input type="number" class="form-control" id="Price" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="col-form-label">Description:</label>
+                        <input class="form-control" id="Description" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createBtn">Create Meal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateMeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Meal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="oldId" />
+                    <div class="form-group">
+                        <label for="title" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="oldName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="release-date" class="col-form-label">Price:</label>
+                        <input type="number" class="form-control" id="oldPrice" />
+                    </div>
+                    <div class="form-group">
+                        <label for="duration" class="col-form-label">Description:</label>
+                        <input class="form-control" id="oldDescription" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="updateBtn">Update Meal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <div class="myform form ">
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createMeal">Create New Meal</button>
+            <table class="table-hover table">
+                <tr>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Meal</th>
+                </tr>
+                <tbody id="meals-body">
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            function listMeals() {
+                $.ajax({
+                    type: 'get',
+                    dataType: 'json',
+                    url: '/api/Meals',
+                    success: function (data) {
+                        $('#meals-body').empty();
+                        data.forEach(function (meal) {
+                            $("#meals-body").append('<tr><td>' + meal.Price + '€</td><td>' + meal.Description + '</td><td>' + meal.Name + '</td><td> <button class="btn btn-danger updateBtn" data-target="#updateMeal" data-toggle="modal" data-id="' + meal.Id + '" data-name="' + meal.Name + '" data-price="' + meal.Price + '" data-description="' + meal.Description + '"data-mealPicture="' + meal.MealPicture + '" >Update</button ><button class="btn btn-danger deleteBtn" data-id="' + meal.Id + '" data-name="' + meal.Name + '"> Delete</button></td > ' + '</tr > ')
+
+                        });
+
+                        $('.deleteBtn').click(function (e) {
+                            var id = e.target.getAttribute('data-id');
+                            var title = e.target.getAttribute('data-name');
+                            alert('Delete ' + title);
+                            $.ajax({
+                                type: 'delete',
+                                url: '/api/meals/' + id,
+                                success: function () {
+                                    listMeals();
+                                },
+                                error: function () {
+
+                                }
+                            });
+                        });
+
+                        $('.updateBtn').click(function (e) {
+                            var Id = e.target.getAttribute('data-id');
+                            var Name = e.target.getAttribute('data-name');
+                            var Price = e.target.getAttribute('data-price');
+                            var Description = e.target.getAttribute('data-description');
+                            $('#oldId').val(Id);
+                            $('#oldName').val(Name);
+                            $('#oldPrice').val(Price);
+                            $('#oldDescription').val(Description);
+                            $('#updateBtn').click(function () {
+                                var meal = new Object();
+                                meal.Id =$('#oldId').val();
+                                meal.Name = $('#oldName').val();;
+                                meal.Price = $('#oldPrice').val();
+                                meal.Description = $('#oldDescription').val();
+                                $.ajax({
+                                    type: 'put',
+                                    url: '/api/meals',
+                                    data: meal,
+                                    success: function () {
+                                        listMeals();
+                                        $('#updateMeal').modal('hide');
+                                    },
+                                    error: function (error) { }
+                                });
+                            });
+                        });
+                    }
+                });
+
+            }
+
+            listMeals();
+            $('#createBtn').click(function (e) {
+                var meal = new Object();
+                meal.Name = $('#Name').val();
+                meal.Price = $('#Price').val();
+                meal.Description = $('#Description').val();
+                $.ajax({
+                    //contentType:'application/json',
+                    url: '/api/meals',
+                    type: 'post',
+                    data: /*(JSON.stringify)*/meal,
+                    success: function () {
+                        listMeals();
+                        $('#createMeal').modal('hide');
+
+
+
+                    },
+                    error: function (error) {
+
+                    }
+                });
+            });
+        });
+
+    </script>
+}
